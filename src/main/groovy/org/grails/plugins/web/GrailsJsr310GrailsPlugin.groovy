@@ -1,6 +1,7 @@
 package org.grails.plugins.web
 
 import grails.plugins.*
+import org.grails.plugins.databinding.DataBindingGrailsPlugin
 
 class GrailsJsr310GrailsPlugin extends Plugin {
 
@@ -42,9 +43,13 @@ Brief summary/description of the plugin.
 
     Closure doWithSpring() {{->
 
+        List dateFormats = config.getProperty(DataBindingGrailsPlugin.DATE_FORMATS, List, DataBindingGrailsPlugin.DEFAULT_DATE_FORMATS)
+
         grailsTagDateHelper(Jsr310TagDateHelper)
 
-        jsr310DataBinding(Jsr310ConvertersConfiguration)
+        jsr310DataBinding(Jsr310ConvertersConfiguration) {
+            formatStrings = dateFormats
+        }
 
     }}
 

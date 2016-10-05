@@ -11,8 +11,9 @@ import java.time.format.DateTimeFormatterBuilder
 import java.time.format.FormatStyle
 import java.time.temporal.TemporalAccessor
 
-class Jsr310TagDateHelper {
+class Jsr310TagDateHelper implements GrailsTagDateHelper {
 
+    @Override
     Object getTimeZone(Object timeZone) {
         if (timeZone != null) {
             if (timeZone instanceof ZoneId) {
@@ -27,11 +28,13 @@ class Jsr310TagDateHelper {
         }
     }
 
+    @Override
     Object getFormatFromPattern(String format, Object timeZone, Locale locale) {
         DateTimeFormatter.ofPattern(format, locale).withZone((ZoneId)timeZone)
 
     }
 
+    @Override
     Object getDateFormat(String style, Object timeZone, Locale locale) {
         new DateTimeFormatterBuilder()
                 .appendLocalized(parseStyle(style), null)
@@ -39,6 +42,7 @@ class Jsr310TagDateHelper {
                 .withZone((ZoneId)timeZone)
     }
 
+    @Override
     Object getTimeFormat(String style, Object timeZone, Locale locale) {
         new DateTimeFormatterBuilder()
                 .appendLocalized(null, parseStyle(style))
@@ -46,6 +50,7 @@ class Jsr310TagDateHelper {
                 .withZone((ZoneId)timeZone)
     }
 
+    @Override
     Object getDateTimeFormat(String dateStyle, String timeStyle, Object timeZone, Locale locale) {
         new DateTimeFormatterBuilder()
                 .appendLocalized(parseStyle(dateStyle), parseStyle(timeStyle))
@@ -53,6 +58,7 @@ class Jsr310TagDateHelper {
                 .withZone((ZoneId)timeZone)
     }
 
+    @Override
     String format(Object formatter, Object date) {
         TemporalAccessor instant
         if (date instanceof Date) {
@@ -79,10 +85,12 @@ class Jsr310TagDateHelper {
         }
     }
 
+    @Override
     Boolean supportsDatePicker(Class clazz) {
         clazz == Date || TemporalAccessor.isAssignableFrom(clazz)
     }
 
+    @Override
     GregorianCalendar buildCalendar(Object date) {
         if (date instanceof Date) {
             GregorianCalendar c = new GregorianCalendar()
