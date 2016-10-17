@@ -66,7 +66,7 @@ class Jsr310TagDateHelper implements GrailsTagDateHelper {
         } else if (date instanceof Calendar) {
             instant = date.toInstant()
         } else if (date instanceof Long) {
-            instant = Instant.ofEpochSecond(date)
+            instant = Instant.ofEpochMilli(date)
         } else if (date instanceof TemporalAccessor) {
             instant = date
         } else {
