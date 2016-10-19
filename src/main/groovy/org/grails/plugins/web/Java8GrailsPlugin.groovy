@@ -1,6 +1,8 @@
 package org.grails.plugins.web
 
 import grails.plugins.*
+import org.grails.datastore.mapping.reflect.ClassUtils
+import org.grails.plugins.bson.CoderRegistry
 import org.grails.plugins.databinding.DataBindingGrailsPlugin
 
 class Java8GrailsPlugin extends Plugin {
@@ -29,6 +31,11 @@ This plugin provides support for Java 8 specific functions in a Grails applicati
 
         jsr310DataBinding(Jsr310ConvertersConfiguration) {
             formatStrings = dateFormats
+        }
+
+        if (ClassUtils.isPresent('org.grails.datastore.bson.codecs.PropertyEncoder')) {
+            CoderRegistry.registerDecoders()
+            CoderRegistry.registerEncoders()
         }
 
     }}
