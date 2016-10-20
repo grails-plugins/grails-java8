@@ -1,4 +1,4 @@
-package org.grails.plugins.mapping.converters
+package org.grails.plugins.converters
 
 import groovy.transform.CompileStatic
 import org.grails.plugins.converters.OffsetTimeConverter

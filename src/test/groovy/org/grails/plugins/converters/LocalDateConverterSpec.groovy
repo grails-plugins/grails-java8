@@ -1,6 +1,5 @@
-package org.grails.plugins.mapping.context
+package org.grails.plugins.converters
 
-import org.grails.plugins.converters.LocalDateConverter
 import spock.lang.Shared
 import spock.lang.Specification
 import java.time.LocalDate

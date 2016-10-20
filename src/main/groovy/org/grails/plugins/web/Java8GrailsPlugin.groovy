@@ -4,6 +4,18 @@ import grails.plugins.*
 import org.grails.datastore.gorm.neo4j.Neo4jMappingContext
 import org.grails.datastore.mapping.reflect.ClassUtils
 import org.grails.plugins.bson.CoderRegistry
+import org.grails.plugins.converters.LocalDateTimeToLongConverter
+import org.grails.plugins.converters.LocalDateToLongConverter
+import org.grails.plugins.converters.LocalTimeToLongConverter
+import org.grails.plugins.converters.LongToLocalDateConverter
+import org.grails.plugins.converters.LongToLocalDateTimeConverter
+import org.grails.plugins.converters.LongToLocalTimeConverter
+import org.grails.plugins.converters.LongToOffsetDateTimeConverter
+import org.grails.plugins.converters.LongToOffsetTimeConverter
+import org.grails.plugins.converters.LongToZonedDateTimeConverter
+import org.grails.plugins.converters.OffsetDateTimeToLongConverter
+import org.grails.plugins.converters.OffsetTimeToLongConverter
+import org.grails.plugins.converters.ZonedDateTimeToLongConverter
 import org.grails.plugins.databinding.DataBindingGrailsPlugin
 import org.grails.plugins.mapping.converters.*
 
