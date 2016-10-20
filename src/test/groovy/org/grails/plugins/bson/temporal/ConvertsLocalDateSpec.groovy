@@ -19,7 +19,7 @@ class ConvertsLocalDateSpec extends Specification implements ConvertsLocalDate {
     void "test read"() {
         given:
         BsonReader bsonReader = Mock(BsonReader) {
-            1 * readInt64() >> -10588
+            1 * readDateTime() >> -914803200000
         }
 
         when:
@@ -39,6 +39,6 @@ class ConvertsLocalDateSpec extends Specification implements ConvertsLocalDate {
         write(bsonWriter, localDate)
 
         then:
-        1 * bsonWriter.writeInt64(-10588)
+        1 * bsonWriter.writeDateTime(-914803200000)
     }
 }
