@@ -1,6 +1,7 @@
 package org.grails.plugins.bson.temporal
 
 import org.bson.BsonReader
+import org.bson.BsonType
 import org.bson.BsonWriter
 import spock.lang.Shared
 import spock.lang.Specification
@@ -52,5 +53,10 @@ class ConvertsOffsetDateTimeSpec extends Specification implements ConvertsOffset
 
         then:
         1 * bsonWriter.writeDateTime(-914759696000)
+    }
+
+    void "test bson type"() {
+        expect:
+        bsonType() == BsonType.DATE_TIME
     }
 }

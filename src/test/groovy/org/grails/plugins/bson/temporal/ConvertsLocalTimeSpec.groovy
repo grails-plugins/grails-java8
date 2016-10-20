@@ -1,6 +1,7 @@
 package org.grails.plugins.bson.temporal
 
 import org.bson.BsonReader
+import org.bson.BsonType
 import org.bson.BsonWriter
 import spock.lang.Shared
 import spock.lang.Specification
@@ -40,5 +41,10 @@ class ConvertsLocalTimeSpec extends Specification implements ConvertsLocalTime {
 
         then:
         1 * bsonWriter.writeInt64(21904000000003)
+    }
+
+    void "test bson type"() {
+        expect:
+        bsonType() == BsonType.INT64
     }
 }
