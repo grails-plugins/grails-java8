@@ -5,35 +5,38 @@ import org.bson.BsonType
 import org.bson.BsonWriter
 import spock.lang.Shared
 import spock.lang.Specification
-import java.time.LocalTime
-import java.time.OffsetTime
-import java.time.ZoneOffset
+import java.time.*
 
-class ConvertsOffsetTimeSpec extends Specification implements ConvertsOffsetTime {
+class ZonedDateTimeBsonConverterSpec extends Specification implements ZonedDateTimeBsonConverter {
 
     @Shared
-    OffsetTime offsetTime
+    ZonedDateTime zonedDateTime
 
     void setupSpec() {
         TimeZone.default = TimeZone.getTimeZone("America/Los_Angeles")
         LocalTime localTime = LocalTime.of(6,5,4,3)
-        offsetTime = OffsetTime.of(localTime, ZoneOffset.ofHours(-6))
+        LocalDate localDate = LocalDate.of(1941, 1, 5)
+        LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime)
+        zonedDateTime = ZonedDateTime.of(localDateTime, ZoneOffset.ofHours(-6))
     }
 
     void "test read"() {
         given:
         BsonReader bsonReader = Mock(BsonReader) {
-            1 * readString() >> '06:05:04.000000003-06:00'
+            1 * readDateTime() >> -914759696000
         }
 
         when:
-        OffsetTime converted = read(bsonReader)
+        ZonedDateTime converted = read(bsonReader)
 
         then:
         converted.hour == 5 //Converted to system default offset
         converted.minute == 5
         converted.second == 4
-        converted.nano == 3
+        converted.nano == 0 //Nanoseconds is lost
+        converted.year == 1941
+        converted.month == Month.JANUARY
+        converted.dayOfMonth == 5
     }
 
     void "test write"() {
@@ -41,14 +44,14 @@ class ConvertsOffsetTimeSpec extends Specification implements ConvertsOffsetTime
         BsonWriter bsonWriter = Mock(BsonWriter)
 
         when:
-        write(bsonWriter, offsetTime)
+        write(bsonWriter, zonedDateTime)
 
         then:
-        1 * bsonWriter.writeString('06:05:04.000000003-06:00')
+        1 * bsonWriter.writeDateTime(-914759696000)
     }
 
     void "test bson type"() {
         expect:
-        bsonType() == BsonType.STRING
+        bsonType() == BsonType.DATE_TIME
     }
 }

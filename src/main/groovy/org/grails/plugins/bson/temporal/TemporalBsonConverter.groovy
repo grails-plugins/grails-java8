@@ -15,17 +15,11 @@ import java.time.ZoneOffset
  * @author James Kleeh
  */
 @CompileStatic
-trait ConvertsTemporal<T> {
+trait TemporalBsonConverter<T> {
 
     abstract void write(BsonWriter writer, T value)
 
     abstract T read(BsonReader reader)
 
     abstract BsonType bsonType()
-
-    ZoneOffset getSystemOffset() {
-        Instant instant = Instant.now()
-        ZoneId systemZone = ZoneId.systemDefault()
-        systemZone.rules.getOffset(instant)
-    }
 }

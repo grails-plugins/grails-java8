@@ -5,7 +5,7 @@ import org.bson.BsonReader
 import org.grails.datastore.bson.codecs.decoders.SimpleDecoder
 import org.grails.datastore.mapping.engine.EntityAccess
 import org.grails.datastore.mapping.model.PersistentProperty
-import org.grails.plugins.bson.temporal.ConvertsZonedDateTime
+import org.grails.plugins.bson.temporal.ZonedDateTimeBsonConverter
 
 /**
  * A simple decoder for {@link java.time.ZonedDateTime}
@@ -13,7 +13,7 @@ import org.grails.plugins.bson.temporal.ConvertsZonedDateTime
  * @author James Kleeh
  */
 @CompileStatic
-class ZonedDateTimeDecoder implements SimpleDecoder.TypeDecoder, ConvertsZonedDateTime {
+class ZonedDateTimeDecoder implements SimpleDecoder.TypeDecoder, ZonedDateTimeBsonConverter {
 
     @Override
     void decode(BsonReader reader, PersistentProperty property, EntityAccess entityAccess) {

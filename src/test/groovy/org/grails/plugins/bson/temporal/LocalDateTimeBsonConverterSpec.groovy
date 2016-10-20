@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.Month
 
-class ConvertsLocalDateTimeSpec extends Specification implements ConvertsLocalDateTime {
+class LocalDateTimeBsonConverterSpec extends Specification implements LocalDateTimeBsonConverter {
 
     @Shared
     LocalDateTime localDateTime

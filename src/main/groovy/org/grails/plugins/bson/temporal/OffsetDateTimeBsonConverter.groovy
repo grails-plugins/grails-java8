@@ -4,6 +4,8 @@ import groovy.transform.CompileStatic
 import org.bson.BsonReader
 import org.bson.BsonType
 import org.bson.BsonWriter
+import org.grails.plugins.converters.OffsetDateTimeConverter
+
 import java.time.Instant
 import java.time.OffsetDateTime
 
@@ -13,16 +15,16 @@ import java.time.OffsetDateTime
  * @author James Kleeh
  */
 @CompileStatic
-trait ConvertsOffsetDateTime implements ConvertsTemporal<OffsetDateTime> {
+trait OffsetDateTimeBsonConverter implements TemporalBsonConverter<OffsetDateTime>, OffsetDateTimeConverter {
 
     @Override
     void write(BsonWriter writer, OffsetDateTime value) {
-        writer.writeDateTime(value.toInstant().toEpochMilli())
+        writer.writeDateTime(convert(value))
     }
 
     @Override
     OffsetDateTime read(BsonReader reader) {
-        OffsetDateTime.ofInstant(Instant.ofEpochMilli(reader.readDateTime()), systemOffset)
+        convert(reader.readDateTime())
     }
 
     @Override

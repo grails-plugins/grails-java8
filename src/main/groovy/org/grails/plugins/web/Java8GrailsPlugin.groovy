@@ -1,9 +1,11 @@
 package org.grails.plugins.web
 
 import grails.plugins.*
+import org.grails.datastore.gorm.neo4j.Neo4jMappingContext
 import org.grails.datastore.mapping.reflect.ClassUtils
 import org.grails.plugins.bson.CoderRegistry
 import org.grails.plugins.databinding.DataBindingGrailsPlugin
+import org.grails.plugins.mapping.converters.*
 
 class Java8GrailsPlugin extends Plugin {
 
@@ -39,5 +41,26 @@ This plugin provides support for Java 8 specific functions in a Grails applicati
         }
 
     }}
+
+    @Override
+    void doWithApplicationContext() {
+        if (ClassUtils.isPresent('org.grails.datastore.gorm.neo4j.Neo4jMappingContext')) {
+            Neo4jMappingContext mappingContext = applicationContext.getBean(Neo4jMappingContext)
+
+            mappingContext.addTypeConverter(new LongToLocalDateConverter())
+            mappingContext.addTypeConverter(new LongToLocalDateTimeConverter())
+            mappingContext.addTypeConverter(new LongToLocalTimeConverter())
+            mappingContext.addTypeConverter(new LongToOffsetDateTimeConverter())
+            mappingContext.addTypeConverter(new LongToOffsetTimeConverter())
+            mappingContext.addTypeConverter(new LongToZonedDateTimeConverter())
+
+            mappingContext.addTypeConverter(new LocalDateToLongConverter())
+            mappingContext.addTypeConverter(new LocalDateTimeToLongConverter())
+            mappingContext.addTypeConverter(new LocalTimeToLongConverter())
+            mappingContext.addTypeConverter(new OffsetDateTimeToLongConverter())
+            mappingContext.addTypeConverter(new OffsetTimeToLongConverter())
+            mappingContext.addTypeConverter(new ZonedDateTimeToLongConverter())
+        }
+    }
 
 }

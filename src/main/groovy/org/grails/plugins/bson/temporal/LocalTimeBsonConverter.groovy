@@ -4,6 +4,8 @@ import groovy.transform.CompileStatic
 import org.bson.BsonReader
 import org.bson.BsonType
 import org.bson.BsonWriter
+import org.grails.plugins.converters.LocalTimeConverter
+
 import java.time.LocalTime
 
 /**
@@ -12,16 +14,16 @@ import java.time.LocalTime
  * @author James Kleeh
  */
 @CompileStatic
-trait ConvertsLocalTime implements ConvertsTemporal<LocalTime> {
+trait LocalTimeBsonConverter implements TemporalBsonConverter<LocalTime>, LocalTimeConverter {
 
     @Override
     void write(BsonWriter writer, LocalTime value) {
-        writer.writeInt64(value.toNanoOfDay())
+        writer.writeInt64(convert(value))
     }
 
     @Override
     LocalTime read(BsonReader reader) {
-        LocalTime.ofNanoOfDay(reader.readInt64())
+        convert(reader.readInt64())
     }
 
     @Override

@@ -6,7 +6,7 @@ import org.bson.BsonWriter
 import org.bson.codecs.Codec
 import org.bson.codecs.DecoderContext
 import org.bson.codecs.EncoderContext
-import org.grails.plugins.bson.temporal.ConvertsOffsetDateTime
+import org.grails.plugins.bson.temporal.OffsetDateTimeBsonConverter
 import java.time.*
 
 /**
@@ -15,7 +15,7 @@ import java.time.*
  * @author James Kleeh
  */
 @CompileStatic
-class OffsetDateTimeCodec implements Codec<OffsetDateTime>, ConvertsOffsetDateTime {
+class OffsetDateTimeCodec implements Codec<OffsetDateTime>, OffsetDateTimeBsonConverter {
 
     @Override
     OffsetDateTime decode(BsonReader reader, DecoderContext decoderContext) {

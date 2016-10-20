@@ -4,6 +4,8 @@ import groovy.transform.CompileStatic
 import org.bson.BsonReader
 import org.bson.BsonType
 import org.bson.BsonWriter
+import org.grails.plugins.converters.LocalDateTimeConverter
+
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -15,16 +17,16 @@ import java.time.ZoneOffset
  * @author James Kleeh
  */
 @CompileStatic
-trait ConvertsLocalDateTime implements ConvertsTemporal<LocalDateTime> {
+trait LocalDateTimeBsonConverter implements TemporalBsonConverter<LocalDateTime>, LocalDateTimeConverter {
 
     @Override
     void write(BsonWriter writer, LocalDateTime value) {
-        writer.writeDateTime(value.toInstant(ZoneOffset.UTC).toEpochMilli())
+        writer.writeDateTime(convert(value))
     }
 
     @Override
     LocalDateTime read(BsonReader reader) {
-        LocalDateTime.ofInstant(Instant.ofEpochMilli(reader.readDateTime()), ZoneId.of('UTC'))
+        convert(reader.readDateTime())
     }
 
     @Override

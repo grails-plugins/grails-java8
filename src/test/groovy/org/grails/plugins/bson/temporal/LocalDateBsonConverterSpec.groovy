@@ -5,31 +5,31 @@ import org.bson.BsonType
 import org.bson.BsonWriter
 import spock.lang.Shared
 import spock.lang.Specification
-import java.time.LocalTime
+import java.time.LocalDate
+import java.time.Month
 
-class ConvertsLocalTimeSpec extends Specification implements ConvertsLocalTime {
+class LocalDateBsonConverterSpec extends Specification implements LocalDateBsonConverter {
 
     @Shared
-    LocalTime localTime
+    LocalDate localDate
 
     void setupSpec() {
-        localTime = LocalTime.of(6,5,4,3)
+        localDate = LocalDate.of(1941, 1, 5)
     }
 
     void "test read"() {
         given:
         BsonReader bsonReader = Mock(BsonReader) {
-            1 * readInt64() >> 21904000000003
+            1 * readDateTime() >> -914803200000
         }
 
         when:
-        LocalTime converted = read(bsonReader)
+        LocalDate converted = read(bsonReader)
 
         then:
-        converted.hour == 6
-        converted.minute == 5
-        converted.second == 4
-        converted.nano == 3
+        converted.year == 1941
+        converted.month == Month.JANUARY
+        converted.dayOfMonth == 5
     }
 
     void "test write"() {
@@ -37,14 +37,14 @@ class ConvertsLocalTimeSpec extends Specification implements ConvertsLocalTime {
         BsonWriter bsonWriter = Mock(BsonWriter)
 
         when:
-        write(bsonWriter, localTime)
+        write(bsonWriter, localDate)
 
         then:
-        1 * bsonWriter.writeInt64(21904000000003)
+        1 * bsonWriter.writeDateTime(-914803200000)
     }
 
     void "test bson type"() {
         expect:
-        bsonType() == BsonType.INT64
+        bsonType() == BsonType.DATE_TIME
     }
 }

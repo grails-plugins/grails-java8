@@ -6,7 +6,7 @@ import org.bson.BsonWriter
 import org.bson.codecs.Codec
 import org.bson.codecs.DecoderContext
 import org.bson.codecs.EncoderContext
-import org.grails.plugins.bson.temporal.ConvertsLocalDateTime
+import org.grails.plugins.bson.temporal.LocalDateTimeBsonConverter
 import java.time.*
 
 /**
@@ -15,7 +15,7 @@ import java.time.*
  * @author James Kleeh
  */
 @CompileStatic
-class LocalDateTimeCodec implements Codec<LocalDateTime>, ConvertsLocalDateTime {
+class LocalDateTimeCodec implements Codec<LocalDateTime>, LocalDateTimeBsonConverter {
 
     @Override
     LocalDateTime decode(BsonReader reader, DecoderContext decoderContext) {

@@ -12,7 +12,7 @@ import java.time.Month
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 
-class ConvertsOffsetDateTimeSpec extends Specification implements ConvertsOffsetDateTime {
+class OffsetDateTimeBsonConverterSpec extends Specification implements OffsetDateTimeBsonConverter {
 
     @Shared
     OffsetDateTime offsetDateTime

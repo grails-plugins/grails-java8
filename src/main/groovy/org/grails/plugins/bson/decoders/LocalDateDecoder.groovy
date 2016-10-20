@@ -5,7 +5,7 @@ import org.bson.BsonReader
 import org.grails.datastore.bson.codecs.decoders.SimpleDecoder
 import org.grails.datastore.mapping.engine.EntityAccess
 import org.grails.datastore.mapping.model.PersistentProperty
-import org.grails.plugins.bson.temporal.ConvertsLocalDate
+import org.grails.plugins.bson.temporal.LocalDateBsonConverter
 
 /**
  * A simple decoder for {@link java.time.LocalDate}
@@ -13,7 +13,7 @@ import org.grails.plugins.bson.temporal.ConvertsLocalDate
  * @author James Kleeh
  */
 @CompileStatic
-class LocalDateDecoder implements SimpleDecoder.TypeDecoder, ConvertsLocalDate {
+class LocalDateDecoder implements SimpleDecoder.TypeDecoder, LocalDateBsonConverter {
 
     @Override
     void decode(BsonReader reader, PersistentProperty property, EntityAccess entityAccess) {

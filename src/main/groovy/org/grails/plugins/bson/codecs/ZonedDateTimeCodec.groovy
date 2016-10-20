@@ -6,7 +6,7 @@ import org.bson.BsonWriter
 import org.bson.codecs.Codec
 import org.bson.codecs.DecoderContext
 import org.bson.codecs.EncoderContext
-import org.grails.plugins.bson.temporal.ConvertsZonedDateTime
+import org.grails.plugins.bson.temporal.ZonedDateTimeBsonConverter
 import java.time.*
 
 /**
@@ -15,7 +15,7 @@ import java.time.*
  * @author James Kleeh
  */
 @CompileStatic
-class ZonedDateTimeCodec implements Codec<ZonedDateTime>, ConvertsZonedDateTime {
+class ZonedDateTimeCodec implements Codec<ZonedDateTime>, ZonedDateTimeBsonConverter {
 
     @Override
     ZonedDateTime decode(BsonReader reader, DecoderContext decoderContext) {

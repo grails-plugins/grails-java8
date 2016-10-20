@@ -5,7 +5,7 @@ import org.bson.BsonReader
 import org.grails.datastore.bson.codecs.decoders.SimpleDecoder
 import org.grails.datastore.mapping.engine.EntityAccess
 import org.grails.datastore.mapping.model.PersistentProperty
-import org.grails.plugins.bson.temporal.ConvertsOffsetTime
+import org.grails.plugins.bson.temporal.OffsetTimeBsonConverter
 
 /**
  * A simple decoder for {@link java.time.OffsetTime}
@@ -13,7 +13,7 @@ import org.grails.plugins.bson.temporal.ConvertsOffsetTime
  * @author James Kleeh
  */
 @CompileStatic
-class OffsetTimeDecoder implements SimpleDecoder.TypeDecoder, ConvertsOffsetTime {
+class OffsetTimeDecoder implements SimpleDecoder.TypeDecoder, OffsetTimeBsonConverter {
 
     @Override
     void decode(BsonReader reader, PersistentProperty property, EntityAccess entityAccess) {

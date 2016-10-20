@@ -4,6 +4,8 @@ import groovy.transform.CompileStatic
 import org.bson.BsonReader
 import org.bson.BsonType
 import org.bson.BsonWriter
+import org.grails.plugins.converters.ZonedDateTimeConverter
+
 import java.time.Instant
 import java.time.ZonedDateTime
 
@@ -13,16 +15,16 @@ import java.time.ZonedDateTime
  * @author James Kleeh
  */
 @CompileStatic
-trait ConvertsZonedDateTime implements ConvertsTemporal<ZonedDateTime> {
+trait ZonedDateTimeBsonConverter implements TemporalBsonConverter<ZonedDateTime>, ZonedDateTimeConverter {
 
     @Override
     void write(BsonWriter writer, ZonedDateTime value) {
-        writer.writeDateTime(value.toInstant().toEpochMilli())
+        writer.writeDateTime(convert(value))
     }
 
     @Override
     ZonedDateTime read(BsonReader reader) {
-        ZonedDateTime.ofInstant(Instant.ofEpochMilli(reader.readDateTime()), systemOffset)
+        convert(reader.readDateTime())
     }
 
     @Override
