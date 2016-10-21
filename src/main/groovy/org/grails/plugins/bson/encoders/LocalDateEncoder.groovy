@@ -2,7 +2,7 @@ package org.grails.plugins.bson.encoders
 
 import groovy.transform.CompileStatic
 import org.bson.BsonWriter
-import org.grails.datastore.bson.codecs.encoders.SimpleEncoder
+import static org.grails.datastore.bson.codecs.encoders.SimpleEncoder.TypeEncoder
 import org.grails.datastore.mapping.model.PersistentProperty
 import org.grails.plugins.bson.temporal.LocalDateBsonConverter
 import java.time.LocalDate
@@ -13,7 +13,7 @@ import java.time.LocalDate
  * @author James Kleeh
  */
 @CompileStatic
-class LocalDateEncoder implements SimpleEncoder.TypeEncoder, LocalDateBsonConverter {
+class LocalDateEncoder implements TypeEncoder, LocalDateBsonConverter {
 
     @Override
     void encode(BsonWriter writer, PersistentProperty property, Object value) {

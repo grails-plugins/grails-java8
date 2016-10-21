@@ -5,6 +5,7 @@ buildscript {
     }
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
+        //classpath "io.github.groovylang.groovydoc:groovydoc-gradle-plugin:1.0.1"
     }
 }
 
@@ -15,6 +16,7 @@ apply plugin:"eclipse"
 apply plugin:"idea"
 apply plugin:"org.grails.grails-plugin"
 apply plugin:"org.grails.grails-plugin-publish"
+//apply plugin:"io.github.groovylang.groovydoc"
 
 repositories {
     mavenLocal()
@@ -29,13 +31,13 @@ dependencyManagement {
 }
 
 dependencies {
-    provided 'org.springframework.boot:spring-boot-starter-logging'
-    provided "org.springframework.boot:spring-boot-starter-actuator"
-    provided "org.springframework.boot:spring-boot-autoconfigure"
-    provided "org.springframework.boot:spring-boot-starter-tomcat"
-    provided "org.grails:grails-dependencies"
-    provided "org.grails.plugins:mongodb"
-    provided "org.grails.plugins:neo4j"
+    compileOnly 'org.springframework.boot:spring-boot-starter-logging'
+    compileOnly "org.springframework.boot:spring-boot-starter-actuator"
+    compileOnly "org.springframework.boot:spring-boot-autoconfigure"
+    compileOnly "org.springframework.boot:spring-boot-starter-tomcat"
+    compileOnly "org.grails:grails-dependencies"
+    compileOnly "org.grails.plugins:mongodb"
+    compileOnly "org.grails.plugins:neo4j"
     testCompile "org.grails:grails-plugin-testing"
 }
 
@@ -49,3 +51,5 @@ grailsPublish {
     desc = "Provides support for Java 8 specific features in Grails"
     developers = [jameskleeh: "James Kleeh"]
 }
+
+configurations.testCompile.extendsFrom(configurations.compileOnly)
