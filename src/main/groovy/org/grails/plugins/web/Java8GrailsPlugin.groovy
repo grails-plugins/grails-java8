@@ -22,7 +22,7 @@ import org.grails.plugins.mapping.converters.*
 class Java8GrailsPlugin extends Plugin {
 
     // the version or versions of Grails the plugin is designed for
-    def grailsVersion = "3.2.0 > *"
+    def grailsVersion = "3.2.1 > *"
 
     // TODO Fill in these fields
     def title = "Grails Java 8 Plugin" // Headline output name of the plugin
