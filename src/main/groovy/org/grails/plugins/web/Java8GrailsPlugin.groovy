@@ -36,6 +36,7 @@ This plugin provides support for Java 8 specific functions in a Grails applicati
     def organization = [name: 'Grails', url: 'http://www.grails.org/']
     def issueManagement = [url: 'https://github.com/grails-plugins/grails-java8/issues']
     def scm = [url: 'https://github.com/grails-plugins/grails-java8']
+    def loadAfter = ['groovyPages']
 
     Closure doWithSpring() {{->
 
