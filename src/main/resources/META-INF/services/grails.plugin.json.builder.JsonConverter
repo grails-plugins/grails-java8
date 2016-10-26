@@ -1,0 +1,6 @@
+org.grails.plugins.json.converters.LocalDateJsonConverter
+org.grails.plugins.json.converters.LocalTimeJsonConverter
+org.grails.plugins.json.converters.LocalDateTimeJsonConverter
+org.grails.plugins.json.converters.OffsetTimeJsonConverter
+org.grails.plugins.json.converters.OffsetDateTimeJsonConverter
+org.grails.plugins.json.converters.ZonedDateTimeJsonConverter
