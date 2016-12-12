@@ -1,9 +1,7 @@
 package org.grails.plugins.json.converters
 
-import grails.plugin.json.builder.JsonConverter
-import grails.plugin.json.builder.JsonOutput
+import grails.plugin.json.builder.JsonGenerator
 import groovy.transform.CompileStatic
-
 import java.time.OffsetTime
 import java.time.format.DateTimeFormatter
 
@@ -13,17 +11,15 @@ import java.time.format.DateTimeFormatter
  * @author James Kleeh
  */
 @CompileStatic
-class OffsetTimeJsonConverter implements JsonConverter {
+class OffsetTimeJsonConverter implements JsonGenerator.Converter {
 
     @Override
-    Closure<? extends CharSequence> getConverter() {
-        { OffsetTime offsetTime ->
-            JsonOutput.toJson(DateTimeFormatter.ISO_OFFSET_TIME.format(offsetTime))
-        }
+    boolean handles(Class<?> type) {
+        OffsetTime == type
     }
 
     @Override
-    Class getType() {
-        OffsetTime
+    Object convert(Object value, String key) {
+        DateTimeFormatter.ISO_OFFSET_TIME.format((OffsetTime)value)
     }
 }

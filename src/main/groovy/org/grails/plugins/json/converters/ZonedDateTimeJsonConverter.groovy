@@ -1,7 +1,6 @@
 package org.grails.plugins.json.converters
 
-import grails.plugin.json.builder.JsonConverter
-import grails.plugin.json.builder.JsonOutput
+import grails.plugin.json.builder.JsonGenerator
 import groovy.transform.CompileStatic
 
 import java.time.ZonedDateTime
@@ -13,17 +12,15 @@ import java.time.format.DateTimeFormatter
  * @author James Kleeh
  */
 @CompileStatic
-class ZonedDateTimeJsonConverter implements JsonConverter {
+class ZonedDateTimeJsonConverter implements JsonGenerator.Converter {
 
     @Override
-    Closure<? extends CharSequence> getConverter() {
-        { ZonedDateTime zonedDateTime ->
-            JsonOutput.toJson(DateTimeFormatter.ISO_ZONED_DATE_TIME.format(zonedDateTime))
-        }
+    boolean handles(Class<?> type) {
+        ZonedDateTime == type
     }
 
     @Override
-    Class getType() {
-        ZonedDateTime
+    Object convert(Object value, String key) {
+        DateTimeFormatter.ISO_ZONED_DATE_TIME.format((ZonedDateTime)value)
     }
 }
