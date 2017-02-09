@@ -24,7 +24,7 @@ class OffsetTimeConverterSpec extends Specification implements OffsetTimeConvert
 
     void "test convert from long"() {
         expect:
-        convert(43504000000003L) == offsetTime.withOffsetSameInstant(ZoneOffset.ofHours(-7))
+        convert(43504000000003L) == offsetTime.withOffsetSameInstant(systemOffset)
     }
 
 }

@@ -28,7 +28,7 @@ class ZonedDateTimeConverterSpec extends Specification implements ZonedDateTimeC
 
     void "test convert from long"() {
         expect:
-        convert(-914759696000L) == zonedDateTime.withNano(0).withZoneSameInstant(ZoneOffset.ofHours(-7))
+        convert(-914759696000L) == zonedDateTime.withNano(0).withZoneSameInstant(systemOffset)
     }
 
 }

@@ -28,7 +28,7 @@ class OffsetDateTimeConverterSpec extends Specification implements OffsetDateTim
 
     void "test convert from long"() {
         expect:
-        convert(-914759696000L) == offsetDateTime.withNano(0).withOffsetSameInstant(ZoneOffset.ofHours(-7))
+        convert(-914759696000L) == offsetDateTime.withNano(0).withOffsetSameInstant(systemOffset)
     }
 
 }
