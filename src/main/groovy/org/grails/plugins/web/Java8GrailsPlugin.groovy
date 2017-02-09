@@ -42,7 +42,9 @@ This plugin provides support for Java 8 specific functions in a Grails applicati
 
         List dateFormats = config.getProperty(DataBindingGrailsPlugin.DATE_FORMATS, List, DataBindingGrailsPlugin.DEFAULT_DATE_FORMATS)
 
-        grailsTagDateHelper(Jsr310TagDateHelper)
+        if (ClassUtils.isPresent('org.grails.plugins.web.GrailsTagDateHelper')) {
+            grailsTagDateHelper(Jsr310TagDateHelper)
+        }
 
         jsr310DataBinding(Jsr310ConvertersConfiguration) {
             formatStrings = dateFormats
