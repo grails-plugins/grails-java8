@@ -35,7 +35,7 @@ class OffsetDateTimeBsonConverterSpec extends Specification implements OffsetDat
         OffsetDateTime converted = read(bsonReader)
 
         then:
-        converted.hour == 5 || converted.hour == 4 //Converted to system default offset
+        converted.hour == 5 || converted.hour == 4 //Converted to system default offset. Changes depending on DST
         converted.minute == 5
         converted.second == 4
         converted.nano == 0 //Nanoseconds is lost
