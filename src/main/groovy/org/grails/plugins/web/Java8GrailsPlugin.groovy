@@ -1,5 +1,6 @@
 package org.grails.plugins.web
 
+import grails.config.Settings
 import grails.plugins.*
 import org.grails.datastore.gorm.neo4j.Neo4jMappingContext
 import org.grails.datastore.mapping.reflect.ClassUtils
@@ -18,6 +19,8 @@ import org.grails.plugins.converters.OffsetTimeToLongConverter
 import org.grails.plugins.converters.ZonedDateTimeToLongConverter
 import org.grails.plugins.databinding.DataBindingGrailsPlugin
 import org.grails.plugins.mapping.converters.*
+
+import java.lang.reflect.Field
 
 class Java8GrailsPlugin extends Plugin {
 
@@ -40,7 +43,15 @@ This plugin provides support for Java 8 specific functions in a Grails applicati
 
     Closure doWithSpring() {{->
 
-        List dateFormats = config.getProperty(DataBindingGrailsPlugin.DATE_FORMATS, List, DataBindingGrailsPlugin.DEFAULT_DATE_FORMATS)
+        Field formats
+        try {
+            formats = DataBindingGrailsPlugin.getDeclaredField('DEFAULT_DATE_FORMATS')
+        } catch (NoSuchFieldException e) {
+            formats = Settings.getDeclaredField('DATE_FORMATS')
+        }
+        String dateFormatProperty = formats.get(null)
+
+        List dateFormats = config.getProperty(dateFormatProperty, List, DataBindingGrailsPlugin.DEFAULT_DATE_FORMATS)
 
         if (ClassUtils.isPresent('org.grails.plugins.web.GrailsTagDateHelper')) {
             grailsTagDateHelper(Jsr310TagDateHelper)
