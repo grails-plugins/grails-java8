@@ -17,7 +17,7 @@ import java.time.ZonedDateTime
 class Jsr310ConvertersConfigurationSpec extends Specification {
 
     @Shared
-    List<String> formats = ["yyyy-MM-dd'T'HH:mm:ssZ", "HH:mm:ssZ", "HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd"]
+    List<String> formats = ["yyyy-MM-dd'T'HH:mm:ssZ", "HH:mm:ssZ", "HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss", "yyyy/MM/dd"]
 
     @Shared
     Jsr310ConvertersConfiguration config = new Jsr310ConvertersConfiguration(formatStrings: formats)
@@ -54,6 +54,7 @@ class Jsr310ConvertersConfigurationSpec extends Specification {
         converter.targetType == LocalDateTime
         converter.canConvert('')
         converter.convert("1941-01-05T08:00:00") instanceof LocalDateTime
+        converter.convert(LocalDateTime.parse("1941-01-05T08:00:00").toString()) == LocalDateTime.parse("1941-01-05T08:00:00")
     }
 
     void "localDateTimeStructuredBindingEditor"() {
@@ -86,7 +87,8 @@ class Jsr310ConvertersConfigurationSpec extends Specification {
         expect:
         converter.targetType == LocalDate
         converter.canConvert('')
-        converter.convert("1941-01-05") instanceof LocalDate
+        converter.convert("1941/01/05") instanceof LocalDate
+        converter.convert(LocalDate.parse("1941-01-05").toString()) == LocalDate.parse("1941-01-05")
     }
 
     void "localDateStructuredBindingEditor"() {
@@ -117,6 +119,7 @@ class Jsr310ConvertersConfigurationSpec extends Specification {
         converter.targetType == LocalTime
         converter.canConvert('')
         converter.convert("08:00:00") instanceof LocalTime
+        converter.convert(LocalTime.parse("08:00").toString()) == LocalTime.parse("08:00")
     }
 
     void "localTimeStructuredBindingEditor"() {
@@ -147,6 +150,7 @@ class Jsr310ConvertersConfigurationSpec extends Specification {
         converter.targetType == OffsetTime
         converter.canConvert('')
         converter.convert("08:00:00+0000") instanceof OffsetTime
+        converter.convert(OffsetTime.parse("08:00+01:00").toString()) == OffsetTime.parse("08:00+01:00")
     }
 
     void "offsetTimeStructuredBindingEditor"() {
@@ -177,6 +181,7 @@ class Jsr310ConvertersConfigurationSpec extends Specification {
         converter.targetType == OffsetDateTime
         converter.canConvert('')
         converter.convert("1941-01-05T08:00:00+0000") instanceof OffsetDateTime
+        converter.convert(OffsetDateTime.parse("1941-01-05T08:00:00+01:00").toString()) == OffsetDateTime.parse("1941-01-05T08:00:00+01:00")
     }
 
     void "offsetDateTimeStructuredBindingEditor"() {
@@ -210,6 +215,7 @@ class Jsr310ConvertersConfigurationSpec extends Specification {
         converter.targetType == ZonedDateTime
         converter.canConvert('')
         converter.convert("1941-01-05T08:00:00+0000") instanceof ZonedDateTime
+        converter.convert(ZonedDateTime.parse("1941-01-05T08:00:00+01:00").toString()) == ZonedDateTime.parse("1941-01-05T08:00:00+01:00")
     }
 
     void "zonedDateTimeStructuredBindingEditor"() {
