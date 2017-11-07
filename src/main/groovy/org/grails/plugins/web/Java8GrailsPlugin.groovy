@@ -45,7 +45,7 @@ This plugin provides support for Java 8 specific functions in a Grails applicati
 
         Field formats
         try {
-            formats = DataBindingGrailsPlugin.getDeclaredField('DEFAULT_DATE_FORMATS')
+            formats = DataBindingGrailsPlugin.getDeclaredField('DATE_FORMATS')
         } catch (NoSuchFieldException e) {
             formats = Settings.getDeclaredField('DATE_FORMATS')
         }
