@@ -228,15 +228,6 @@ class Jsr310ConvertersConfigurationSpec extends Specification {
         date.second == 0
     }
 
-    void "periodConverter"() {
-        given:
-        def converter = config.periodConverter()
-
-        expect:
-        converter.targetType == Period
-        converter.convert("P2D", null) instanceof Period
-    }
-
     void "periodValueConverter"() {
         def converter = config.periodValueConverter()
 

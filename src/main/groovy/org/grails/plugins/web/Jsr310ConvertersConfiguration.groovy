@@ -298,28 +298,11 @@ class Jsr310ConvertersConfiguration {
     }
 
     @Bean
-    FormattedValueConverter periodConverter() {
-        new FormattedValueConverter() {
-            @Override
-            Object convert(Object value, String format) {
-                Period.parse((CharSequence) value)
-            }
-
-            @Override
-            Class<?> getTargetType() {
-                Period
-            }
-        }
-    }
-
-    @Bean
     ValueConverter periodValueConverter() {
         new Jsr310DateValueConverter<Period>() {
             @Override
             Period convert(Object value) {
-                convert(value) { String format ->
-                    Period.parse((CharSequence) value)
-                }
+                Period.parse((CharSequence) value)
             }
 
             @Override
