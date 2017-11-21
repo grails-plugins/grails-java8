@@ -297,6 +297,21 @@ class Jsr310ConvertersConfiguration {
         }
     }
 
+    @Bean
+    ValueConverter periodValueConverter() {
+        new Jsr310DateValueConverter<Period>() {
+            @Override
+            Period convert(Object value) {
+                Period.parse((CharSequence) value)
+            }
+
+            @Override
+            Class<?> getTargetType() {
+                Period
+            }
+        }
+    }
+
     abstract class Jsr310DateValueConverter<T> implements ValueConverter {
 
         @Override

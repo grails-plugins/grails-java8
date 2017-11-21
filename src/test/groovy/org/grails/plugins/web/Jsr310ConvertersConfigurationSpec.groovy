@@ -10,6 +10,7 @@ import java.time.LocalTime
 import java.time.Month
 import java.time.OffsetDateTime
 import java.time.OffsetTime
+import java.time.Period
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
@@ -225,5 +226,14 @@ class Jsr310ConvertersConfigurationSpec extends Specification {
         date.hour == 8
         date.minute == 0
         date.second == 0
+    }
+
+    void "periodValueConverter"() {
+        def converter = config.periodValueConverter()
+
+        expect:
+        converter.targetType == Period
+        converter.canConvert('')
+        converter.convert("P2D") instanceof Period
     }
 }

@@ -16,6 +16,8 @@ import org.grails.plugins.converters.LongToOffsetTimeConverter
 import org.grails.plugins.converters.LongToZonedDateTimeConverter
 import org.grails.plugins.converters.OffsetDateTimeToLongConverter
 import org.grails.plugins.converters.OffsetTimeToLongConverter
+import org.grails.plugins.converters.PeriodToStringConverter
+import org.grails.plugins.converters.StringToPeriodConverter
 import org.grails.plugins.converters.ZonedDateTimeToLongConverter
 import org.grails.plugins.databinding.DataBindingGrailsPlugin
 import org.grails.plugins.mapping.converters.*
@@ -79,6 +81,7 @@ This plugin provides support for Java 8 specific functions in a Grails applicati
             mappingContext.addTypeConverter(new LongToOffsetDateTimeConverter())
             mappingContext.addTypeConverter(new LongToOffsetTimeConverter())
             mappingContext.addTypeConverter(new LongToZonedDateTimeConverter())
+            mappingContext.addTypeConverter(new StringToPeriodConverter())
 
             mappingContext.addTypeConverter(new LocalDateToLongConverter())
             mappingContext.addTypeConverter(new LocalDateTimeToLongConverter())
@@ -86,6 +89,7 @@ This plugin provides support for Java 8 specific functions in a Grails applicati
             mappingContext.addTypeConverter(new OffsetDateTimeToLongConverter())
             mappingContext.addTypeConverter(new OffsetTimeToLongConverter())
             mappingContext.addTypeConverter(new ZonedDateTimeToLongConverter())
+            mappingContext.addTypeConverter(new PeriodToStringConverter())
         }
     }
 
