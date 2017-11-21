@@ -4,3 +4,4 @@ org.grails.plugins.bson.codecs.LocalDateTimeCodec
 org.grails.plugins.bson.codecs.OffsetDateTimeCodec
 org.grails.plugins.bson.codecs.OffsetTimeCodec
 org.grails.plugins.bson.codecs.ZonedDateTimeCodec
+org.grails.plugins.bson.codecs.PeriodCodec

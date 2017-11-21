@@ -19,6 +19,7 @@ class CoderRegistry {
         encoders[OffsetDateTime] = new OffsetDateTimeEncoder()
         encoders[OffsetTime] = new OffsetTimeEncoder()
         encoders[ZonedDateTime] = new ZonedDateTimeEncoder()
+        encoders[Period] = new PeriodEncoder()
     }
 
     static void registerDecoders() {
@@ -30,5 +31,6 @@ class CoderRegistry {
         decoders[OffsetDateTime] = new OffsetDateTimeDecoder()
         decoders[OffsetTime] = new OffsetTimeDecoder()
         decoders[ZonedDateTime] = new ZonedDateTimeDecoder()
+        decoders[Period] = new PeriodDecoder()
     }
 }
