@@ -1,35 +1,20 @@
 package org.grails.plugins.web
 
-import org.grails.plugins.databinding.DataBindingGrailsPlugin
 import spock.lang.Shared
 import spock.lang.Specification
 
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.LocalTime
-import java.time.Month
-import java.time.OffsetDateTime
-import java.time.OffsetTime
-import java.time.Period
-import java.time.ZoneId
-import java.time.ZoneOffset
-import java.time.ZonedDateTime
+import java.time.*
 
 class Jsr310ConvertersConfigurationSpec extends Specification {
 
     @Shared
-    List<String> formats = ["yyyy-MM-dd'T'HH:mm:ssZ", "HH:mm:ssZ", "HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd"]
-
-    @Shared
-    Jsr310ConvertersConfiguration config = new Jsr310ConvertersConfiguration(formatStrings: formats)
+    Jsr310ConvertersConfiguration config = new Jsr310ConvertersConfiguration(formatStrings: Java8GrailsPlugin.DEFAULT_JSR310_FORMATS)
 
     @Shared
     LocalDate localDate = LocalDate.of(1941, 1, 5)
 
     @Shared
     LocalTime localTime = LocalTime.of(8, 0, 0, 0)
-
-
 
 
     @Shared
@@ -45,7 +30,7 @@ class Jsr310ConvertersConfigurationSpec extends Specification {
 
         expect:
         converter.targetType == LocalDateTime
-        converter.convert("1941-01-05T08:00:00", "yyyy-MM-dd'T'HH:mm:ss") instanceof LocalDateTime
+        converter.convert("1941-01-05T08:00:00", Java8GrailsPlugin.DEFAULT_JSR310_LOCAL_DATE_TIME_FORMAT) instanceof LocalDateTime
     }
 
     void "localDateTimeValueConverter"() {
@@ -78,7 +63,7 @@ class Jsr310ConvertersConfigurationSpec extends Specification {
 
         expect:
         converter.targetType == LocalDate
-        converter.convert("1941-01-05", "yyyy-MM-dd") instanceof LocalDate
+        converter.convert("1941-01-05", Java8GrailsPlugin.DEFAULT_JSR310_LOCAL_DATE_FORMAT) instanceof LocalDate
     }
 
     void "localDateValueConverter"() {
@@ -108,7 +93,7 @@ class Jsr310ConvertersConfigurationSpec extends Specification {
 
         expect:
         converter.targetType == LocalTime
-        converter.convert("08:00:00", "HH:mm:ss") instanceof LocalTime
+        converter.convert("08:00:00", Java8GrailsPlugin.DEFAULT_JSR310_LOCAL_TIME_FORMAT) instanceof LocalTime
     }
 
     void "localTimeValueConverter"() {
@@ -138,7 +123,7 @@ class Jsr310ConvertersConfigurationSpec extends Specification {
 
         expect:
         converter.targetType == OffsetTime
-        converter.convert("08:00:00+0000", "HH:mm:ssZ") instanceof OffsetTime
+        converter.convert("08:00:00+0000", Java8GrailsPlugin.DEFAULT_JSR310_OFFSET_TIME_FORMAT) instanceof OffsetTime
     }
 
     void "offsetTimeValueConverter"() {
@@ -168,7 +153,7 @@ class Jsr310ConvertersConfigurationSpec extends Specification {
 
         expect:
         converter.targetType == OffsetDateTime
-        converter.convert("1941-01-05T08:00:00+0000", "yyyy-MM-dd'T'HH:mm:ssZ") instanceof OffsetDateTime
+        converter.convert("1941-01-05T08:00:00+0000", Java8GrailsPlugin.DEFAULT_JSR310_OFFSET_DATE_TIME_FORMAT) instanceof OffsetDateTime
     }
 
     void "offsetDateTimeValueConverter"() {
@@ -201,7 +186,7 @@ class Jsr310ConvertersConfigurationSpec extends Specification {
 
         expect:
         converter.targetType == ZonedDateTime
-        converter.convert("1941-01-05T08:00:00+0000", "yyyy-MM-dd'T'HH:mm:ssZ") instanceof ZonedDateTime
+        converter.convert("1941-01-05T08:00:00+0000", Java8GrailsPlugin.DEFAULT_JSR310_ZONED_DATE_TIME_FORMAT) instanceof ZonedDateTime
     }
 
     void "zonedDateTimeValueConverter"() {
