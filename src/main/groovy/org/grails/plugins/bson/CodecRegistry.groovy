@@ -8,7 +8,7 @@ import org.grails.plugins.bson.encoders.*
 import java.time.*
 
 @CompileStatic
-class CoderRegistry {
+class CodecRegistry {
 
     static void registerEncoders() {
         Map<Class, SimpleEncoder.TypeEncoder> encoders = SimpleEncoder.SIMPLE_TYPE_ENCODERS
@@ -20,6 +20,7 @@ class CoderRegistry {
         encoders[OffsetTime] = new OffsetTimeEncoder()
         encoders[ZonedDateTime] = new ZonedDateTimeEncoder()
         encoders[Period] = new PeriodEncoder()
+        encoders[Instant] = new InstantEncoder()
     }
 
     static void registerDecoders() {
@@ -32,5 +33,6 @@ class CoderRegistry {
         decoders[OffsetTime] = new OffsetTimeDecoder()
         decoders[ZonedDateTime] = new ZonedDateTimeDecoder()
         decoders[Period] = new PeriodDecoder()
+        decoders[Instant] = new InstantDecoder()
     }
 }

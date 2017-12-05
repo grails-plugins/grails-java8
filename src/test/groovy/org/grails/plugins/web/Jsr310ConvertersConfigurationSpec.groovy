@@ -4,6 +4,7 @@ import org.grails.plugins.databinding.DataBindingGrailsPlugin
 import spock.lang.Shared
 import spock.lang.Specification
 
+import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -235,5 +236,15 @@ class Jsr310ConvertersConfigurationSpec extends Specification {
         converter.targetType == Period
         converter.canConvert('')
         converter.convert("P2D") instanceof Period
+    }
+
+    void "instantValueConverter"() {
+        def converter = config.instantValueConverter()
+
+        expect:
+        converter.targetType == Instant
+        converter.canConvert(2)
+        !converter.canConvert("23")
+        converter.convert(1) instanceof Instant
     }
 }

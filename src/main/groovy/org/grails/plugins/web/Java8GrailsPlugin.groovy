@@ -4,10 +4,12 @@ import grails.config.Settings
 import grails.plugins.*
 import org.grails.datastore.gorm.neo4j.Neo4jMappingContext
 import org.grails.datastore.mapping.reflect.ClassUtils
-import org.grails.plugins.bson.CoderRegistry
+import org.grails.plugins.bson.CodecRegistry
+import org.grails.plugins.converters.InstantToLongConverter
 import org.grails.plugins.converters.LocalDateTimeToLongConverter
 import org.grails.plugins.converters.LocalDateToLongConverter
 import org.grails.plugins.converters.LocalTimeToLongConverter
+import org.grails.plugins.converters.LongToInstantConverter
 import org.grails.plugins.converters.LongToLocalDateConverter
 import org.grails.plugins.converters.LongToLocalDateTimeConverter
 import org.grails.plugins.converters.LongToLocalTimeConverter
@@ -64,8 +66,8 @@ This plugin provides support for Java 8 specific functions in a Grails applicati
         }
 
         if (ClassUtils.isPresent('org.grails.datastore.bson.codecs.PropertyEncoder')) {
-            CoderRegistry.registerDecoders()
-            CoderRegistry.registerEncoders()
+            CodecRegistry.registerDecoders()
+            CodecRegistry.registerEncoders()
         }
 
     }}
@@ -82,6 +84,7 @@ This plugin provides support for Java 8 specific functions in a Grails applicati
             mappingContext.addTypeConverter(new LongToOffsetTimeConverter())
             mappingContext.addTypeConverter(new LongToZonedDateTimeConverter())
             mappingContext.addTypeConverter(new StringToPeriodConverter())
+            mappingContext.addTypeConverter(new LongToInstantConverter())
 
             mappingContext.addTypeConverter(new LocalDateToLongConverter())
             mappingContext.addTypeConverter(new LocalDateTimeToLongConverter())
@@ -90,6 +93,7 @@ This plugin provides support for Java 8 specific functions in a Grails applicati
             mappingContext.addTypeConverter(new OffsetTimeToLongConverter())
             mappingContext.addTypeConverter(new ZonedDateTimeToLongConverter())
             mappingContext.addTypeConverter(new PeriodToStringConverter())
+            mappingContext.addTypeConverter(new InstantToLongConverter())
         }
     }
 

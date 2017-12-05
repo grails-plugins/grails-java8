@@ -4,6 +4,11 @@ import groovy.transform.CompileStatic
 
 import java.time.Period
 
+/**
+ * A trait to convert a {@link java.time.Period} to and from a String
+ *
+ * @author James Kleeh
+ */
 @CompileStatic
 trait PeriodConverter {
 

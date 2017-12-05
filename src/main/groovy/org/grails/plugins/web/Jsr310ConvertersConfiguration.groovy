@@ -312,6 +312,26 @@ class Jsr310ConvertersConfiguration {
         }
     }
 
+    @Bean
+    ValueConverter instantValueConverter() {
+        new ValueConverter() {
+            @Override
+            boolean canConvert(Object value) {
+                value instanceof Number
+            }
+
+            @Override
+            Object convert(Object value) {
+                Instant.ofEpochMilli(((Number) value).longValue())
+            }
+
+            @Override
+            Class<?> getTargetType() {
+                Instant
+            }
+        }
+    }
+
     abstract class Jsr310DateValueConverter<T> implements ValueConverter {
 
         @Override

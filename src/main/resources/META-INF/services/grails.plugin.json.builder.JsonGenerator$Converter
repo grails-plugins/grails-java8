@@ -5,3 +5,4 @@ org.grails.plugins.json.converters.OffsetTimeJsonConverter
 org.grails.plugins.json.converters.OffsetDateTimeJsonConverter
 org.grails.plugins.json.converters.ZonedDateTimeJsonConverter
 org.grails.plugins.json.converters.PeriodJsonConverter
+org.grails.plugins.json.converters.InstantJsonConverter
