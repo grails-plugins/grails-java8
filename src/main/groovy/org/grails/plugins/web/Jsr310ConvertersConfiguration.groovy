@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter
 @Configuration
 class Jsr310ConvertersConfiguration {
 
-    List<String> formatStrings = []
+    Set<String> formatStrings = []
 
     @Bean
     FormattedValueConverter offsetDateTimeConverter() {

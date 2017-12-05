@@ -28,6 +28,30 @@ import java.lang.reflect.Field
 
 class Java8GrailsPlugin extends Plugin {
 
+    public static final String DEFAULT_JSR310_OFFSET_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ"
+    public static final String DEFAULT_JSR310_OFFSET_TIME_FORMAT = "HH:mm:ssZ"
+    public static final String DEFAULT_JSR310_LOCAL_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss"
+    public static final String DEFAULT_JSR310_LOCAL_DATE_FORMAT = "yyyy-MM-dd"
+    public static final String DEFAULT_JSR310_LOCAL_TIME_FORMAT = "HH:mm:ss"
+    public static final String DEFAULT_JSR310_ZONED_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ"
+
+    /**
+     * Default JSR310 Date formats. Used when no custom formats are supplied.
+     *
+     * Note: the JSR310 formats extend the defaults provided in {@link DataBindingGrailsPlugin#DEFAULT_DATE_FORMATS}
+     *
+     * Note 2: currently {@link #DEFAULT_JSR310_OFFSET_DATE_TIME_FORMAT} == {@link #DEFAULT_JSR310_ZONED_DATE_TIME_FORMAT},
+     *         but both are included for completeness/documentation, or in case either format changes.
+     */
+    public static final Set<String> DEFAULT_JSR310_FORMATS = [
+            DEFAULT_JSR310_OFFSET_DATE_TIME_FORMAT,
+            DEFAULT_JSR310_OFFSET_TIME_FORMAT,
+            DEFAULT_JSR310_LOCAL_DATE_TIME_FORMAT,
+            DEFAULT_JSR310_LOCAL_DATE_FORMAT,
+            DEFAULT_JSR310_LOCAL_TIME_FORMAT,
+            DEFAULT_JSR310_ZONED_DATE_TIME_FORMAT
+    ] + DataBindingGrailsPlugin.DEFAULT_DATE_FORMATS
+
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "3.2.1 > *"
 
@@ -47,15 +71,7 @@ This plugin provides support for Java 8 specific functions in a Grails applicati
 
     Closure doWithSpring() {{->
 
-        Field formats
-        try {
-            formats = DataBindingGrailsPlugin.getDeclaredField('DATE_FORMATS')
-        } catch (NoSuchFieldException e) {
-            formats = Settings.getDeclaredField('DATE_FORMATS')
-        }
-        String dateFormatProperty = formats.get(null)
-
-        List dateFormats = config.getProperty(dateFormatProperty, List, DataBindingGrailsPlugin.DEFAULT_DATE_FORMATS)
+        Set<String> dateFormats = getDateFormats()
 
         if (ClassUtils.isPresent('org.grails.plugins.web.GrailsTagDateHelper')) {
             grailsTagDateHelper(Jsr310TagDateHelper)
@@ -71,6 +87,27 @@ This plugin provides support for Java 8 specific functions in a Grails applicati
         }
 
     }}
+
+    /**
+     * Get the configured date formats.
+     *
+     * Tries to:
+     *  1. Load any configured date formats
+     *  2. Falls back to the {@link #DEFAULT_JSR310_FORMATS} for sensible defaults
+     *
+     * @return a set of formats to use when binding dates via {@link Jsr310ConvertersConfiguration}
+     */
+    Set<String> getDateFormats() {
+        Field formats
+        try {
+            formats = DataBindingGrailsPlugin.getDeclaredField('DATE_FORMATS')
+        } catch (NoSuchFieldException e) {
+            formats = Settings.getDeclaredField('DATE_FORMATS')
+        }
+        String dateFormatProperty = formats.get(null)
+
+        return config.getProperty(dateFormatProperty, Set, DEFAULT_JSR310_FORMATS)
+    }
 
     @Override
     void doWithApplicationContext() {
