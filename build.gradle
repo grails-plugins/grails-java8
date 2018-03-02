@@ -8,8 +8,8 @@ buildscript {
     }
 }
 
-//version "1.2.3.BUILD-SNAPSHOT"
-version "1.2.3"
+version "1.2.4.BUILD-SNAPSHOT"
+//version "1.2.3"
 group "org.grails.plugins"
 
 apply plugin:"eclipse"
