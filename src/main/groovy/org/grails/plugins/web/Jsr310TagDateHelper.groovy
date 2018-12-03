@@ -36,9 +36,9 @@ class Jsr310TagDateHelper implements GrailsTagDateHelper {
     }
 
     @Override
-    Object getDateFormat(String style, Object timeZone, Locale locale) {
+    Object getDateFormat(String dateStyle, Object timeZone, Locale locale) {
         new DateTimeFormatterBuilder()
-                .appendLocalized(parseStyle(style), null)
+                .appendLocalized(parseStyle(dateStyle), null)
                 .toFormatter(locale)
                 .withZone((ZoneId)timeZone)
     }
