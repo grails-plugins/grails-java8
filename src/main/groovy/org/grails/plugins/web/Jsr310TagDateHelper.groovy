@@ -4,6 +4,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.OffsetDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -90,6 +91,11 @@ class Jsr310TagDateHelper implements GrailsTagDateHelper {
         clazz == Date || TemporalAccessor.isAssignableFrom(clazz)
     }
 
+    /**
+     *
+     * @param date The date object
+     * @return null if date Object is not an instance of {@link java.util.Date}, {@link LocalDateTime}, {@link LocalDate}, {@link OffsetDateTime}, {@link ZonedDateTime} or {@link TemporalAccessor}
+     */
     @Override
     GregorianCalendar buildCalendar(Object date) {
         if (date instanceof Date) {
@@ -102,8 +108,17 @@ class Jsr310TagDateHelper implements GrailsTagDateHelper {
                 zonedDateTime = ZonedDateTime.of(date, ZoneId.systemDefault())
             } else if (date instanceof LocalDate) {
                 zonedDateTime = ZonedDateTime.of(date, LocalTime.MIN, ZoneId.systemDefault())
-            } else {
+            } else if (date instanceof OffsetDateTime) {
+                zonedDateTime = ((OffsetDateTime) date).toZonedDateTime()
+
+            } else if (date instanceof ZonedDateTime) {
+                zonedDateTime = (ZonedDateTime) date
+
+            } else if (date instanceof TemporalAccessor) {
                 zonedDateTime = ZonedDateTime.from(date)
+            }
+            if (zonedDateTime == null) {
+                return null
             }
             GregorianCalendar.from(zonedDateTime)
         }
