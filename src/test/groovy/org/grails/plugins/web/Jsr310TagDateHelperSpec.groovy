@@ -2,6 +2,7 @@ package org.grails.plugins.web
 
 import spock.lang.Shared
 import spock.lang.Specification
+import spock.lang.Unroll
 
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -60,7 +61,8 @@ class Jsr310TagDateHelperSpec extends Specification {
         null     | '1/5/41'
     }
 
-    void "test getTimeFormat"() {
+    @Unroll
+    void "getTimeFormat for style #style returns #expected"(String style, String expected) {
         given:
         DateTimeFormatter format
 
@@ -79,7 +81,8 @@ class Jsr310TagDateHelperSpec extends Specification {
         null     | '8:00 AM'
     }
 
-    void "test getDateTimeFormat"() {
+    @Unroll("for getDateTimeFormat(#dateStyle, #timeStyle) => #expected")
+    void "test getDateTimeFormat"(String dateStyle, String timeStyle, String expected) {
         given:
         DateTimeFormatter format
 
