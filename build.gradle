@@ -37,7 +37,7 @@ dependencies {
     compileOnly "org.grails:grails-dependencies"
     compileOnly "org.grails.plugins:mongodb"
     compileOnly "org.grails.plugins:neo4j"
-    compileOnly "org.grails.plugins:views-json:$viewsVersion"
+    compileOnly "org.grails.plugins:views-json:1.2.6"
     testCompile "org.grails:grails-plugin-testing"
 }
 

@@ -1,7 +1,7 @@
 package org.grails.plugins.web
 
 import grails.config.Settings
-import grails.plugins.Plugin
+import grails.plugins.*
 import org.grails.datastore.gorm.neo4j.Neo4jMappingContext
 import org.grails.datastore.mapping.reflect.ClassUtils
 import org.grails.plugins.bson.CodecRegistry
@@ -22,6 +22,7 @@ import org.grails.plugins.converters.PeriodToStringConverter
 import org.grails.plugins.converters.StringToPeriodConverter
 import org.grails.plugins.converters.ZonedDateTimeToLongConverter
 import org.grails.plugins.databinding.DataBindingGrailsPlugin
+import org.grails.plugins.mapping.converters.*
 
 import java.lang.reflect.Field
 

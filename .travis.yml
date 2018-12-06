@@ -1,16 +1,10 @@
+sudo: false
 language: groovy
 jdk:
 - oraclejdk8
-- openjdk11
-install: true
+before_script:
+- rm -rf target
 script: ./travis-build.sh
-before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-cache:
-  directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
 env:
   global:
   - GIT_NAME="James Kleeh"

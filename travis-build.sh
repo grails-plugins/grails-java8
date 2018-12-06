@@ -1,24 +1,13 @@
 #!/bin/bash
 set -e
-
-EXIT_STATUS=0
-
 rm -rf *.zip
-
-./gradlew clean test assemble || EXIT_STATUS=$?
+./gradlew clean test assemble
 
 filename=$(find build/libs -name "*.jar" | head -1)
 filename=$(basename "$filename")
 
-if [ $EXIT_STATUS -ne 0 ]; then
-  exit $EXIT_STATUS
-fi
-
-if [ "${TRAVIS_JDK_VERSION}" == "openjdk11" ] ; then
-  exit $EXIT_STATUS
-fi
-
-echo "Publishing archives for branch $TRAVIS_BRANCH JDK: $TRAVIS_JDK_VERSION"
+EXIT_STATUS=0
+echo "Publishing archives for branch $TRAVIS_BRANCH"
 if [[ -n $TRAVIS_TAG ]] || [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then
 
   echo "Publishing archives"
